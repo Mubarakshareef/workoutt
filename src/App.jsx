@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
@@ -31,15 +31,21 @@ const theme = createTheme({
 });
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
           <div className="app">
-            <Header />
+            <Header toggleSidebar={toggleSidebar} />
             <div className="main-container">
-              <Sidebar />
+              <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
               <main className="content">
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
