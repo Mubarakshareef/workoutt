@@ -14,7 +14,7 @@ import {
   Tab,
   Tabs
 } from '@mui/material';
-import { setUser } from '../store/slices/authSlice';
+import { setUser, logout } from '../store/slices/authSlice'; // Added logout import
 
 const Profile = () => {
   const dispatch = useDispatch();
