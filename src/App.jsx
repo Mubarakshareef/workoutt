@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme, Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 
 // Layout Components
 import Header from './components/layout/Header';
-import Sidebar from './components/layout/Sidebar';
 
 // Pages
 import Dashboard from './pages/Dashboard';
@@ -32,26 +30,21 @@ const theme = createTheme({
 });
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <Box sx={{ display: 'flex' }}>
-            <Header toggleSidebar={handleSidebarToggle} />
-            <Sidebar 
-              open={sidebarOpen} 
-              onClose={() => setSidebarOpen(false)} 
-            />
+          <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Header />
             <Box
               component="main"
-              className={`content ${!sidebarOpen ? 'sidebar-closed' : ''}`}
+              sx={{
+                flexGrow: 1,
+                p: 3,
+                mt: '64px', // Height of the AppBar
+                width: '100%'
+              }}
             >
               <Routes>
                 <Route path="/" element={<Dashboard />} />

@@ -21,7 +21,7 @@ const drawerWidth = 240;
 const Sidebar = ({ open, onClose }) => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Detect mobile view
 
   const menuItems = [
     { text: 'Dashboard', path: '/', icon: <DashboardIcon /> },
@@ -33,7 +33,7 @@ const Sidebar = ({ open, onClose }) => {
 
   return (
     <Drawer
-      variant={isMobile ? 'temporary' : 'persistent'}
+      variant={isMobile ? 'temporary' : 'persistent'}  // `temporary` for mobile, `persistent` for desktop
       anchor="left"
       open={open}
       onClose={onClose}
@@ -43,20 +43,19 @@ const Sidebar = ({ open, onClose }) => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          marginTop: '64px',
+          marginTop: '64px',  // To adjust for AppBar height
           height: 'calc(100% - 64px)',
-          zIndex: theme.zIndex.appBar - 1,
         },
       }}
     >
       <List>
         {menuItems.map((item) => (
           <ListItem 
-            button 
+            button
             key={item.text} 
             onClick={() => {
               navigate(item.path);
-              if (isMobile) onClose();
+              if (isMobile) onClose(); // Close the sidebar if on mobile
             }}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
