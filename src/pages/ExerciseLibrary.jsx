@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Tabs,
-  Tab,
-  Box,
-  Chip,
-  Rating
+  Grid, Card, CardContent, CardMedia, Typography,
+  Tabs, Tab, Box, Chip, Rating
 } from '@mui/material';
 
 const exercises = [
@@ -36,7 +28,7 @@ const ExerciseLibrary = () => {
   const categories = ['all', 'Chest', 'Back', 'Legs', 'Arms', 'Core'];
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ mt: 12, p: 3 }}>  {/* Added margin top */}
       <Typography variant="h4" gutterBottom>
         Exercise Library
       </Typography>
