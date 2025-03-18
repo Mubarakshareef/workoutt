@@ -1,27 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  workouts: [],
-  currentWorkout: null,
-  loading: false,
-  error: null
-};
-
 const workoutSlice = createSlice({
   name: 'workout',
-  initialState,
+  initialState: {
+    todayWorkout: null,
+  },
   reducers: {
-    setWorkouts: (state, action) => {
-      state.workouts = action.payload;
+    setTodayWorkout: (state, action) => {
+      state.todayWorkout = action.payload;
     },
-    addWorkout: (state, action) => {
-      state.workouts.push(action.payload);
-    },
-    setCurrentWorkout: (state, action) => {
-      state.currentWorkout = action.payload;
-    }
-  }
+  },
 });
 
-export const { setWorkouts, addWorkout, setCurrentWorkout } = workoutSlice.actions;
+export const { setTodayWorkout } = workoutSlice.actions;
 export default workoutSlice.reducer;
