@@ -3,18 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 const progressSlice = createSlice({
   name: 'progress',
   initialState: {
-    workoutHistory: [],
-    metrics: {}
+    completedWorkouts: [],
   },
   reducers: {
-    addWorkoutHistory: (state, action) => {
-      state.workoutHistory.push(action.payload);
-    },
-    updateMetrics: (state, action) => {
-      state.metrics = { ...state.metrics, ...action.payload };
+    addCompletedWorkout: (state, action) => {
+      state.completedWorkouts.unshift({
+        ...action.payload,
+        completedDate: new Date().toISOString()
+      });
     }
   }
 });
 
-export const { addWorkoutHistory, updateMetrics } = progressSlice.actions;
+export const { addCompletedWorkout } = progressSlice.actions;
 export default progressSlice.reducer;
