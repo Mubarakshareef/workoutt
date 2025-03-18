@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 
 // Layout Components
 import Header from './components/layout/Header';
@@ -33,7 +34,7 @@ const theme = createTheme({
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const toggleSidebar = () => {
+  const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
@@ -42,21 +43,25 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <div className="app">
-            <Header toggleSidebar={toggleSidebar} />
-            <div className="main-container">
-              <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-              <main className="content">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/workout-planner" element={<WorkoutPlanner />} />
-                  <Route path="/exercise-library" element={<ExerciseLibrary />} />
-                  <Route path="/progress" element={<Progress />} />
-                  <Route path="/profile" element={<Profile />} />
-                </Routes>
-              </main>
-            </div>
-          </div>
+          <Box sx={{ display: 'flex' }}>
+            <Header toggleSidebar={handleSidebarToggle} />
+            <Sidebar 
+              open={sidebarOpen} 
+              onClose={() => setSidebarOpen(false)} 
+            />
+            <Box
+              component="main"
+              className={`content ${!sidebarOpen ? 'sidebar-closed' : ''}`}
+            >
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/workout-planner" element={<WorkoutPlanner />} />
+                <Route path="/exercise-library" element={<ExerciseLibrary />} />
+                <Route path="/progress" element={<Progress />} />
+                <Route path="/profile" element={<Profile />} />
+              </Routes>
+            </Box>
+          </Box>
         </Router>
       </ThemeProvider>
     </Provider>

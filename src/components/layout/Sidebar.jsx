@@ -16,6 +16,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PersonIcon from '@mui/icons-material/Person';
 
+const drawerWidth = 240;
+
 const Sidebar = ({ open, onClose }) => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -30,40 +32,39 @@ const Sidebar = ({ open, onClose }) => {
   ];
 
   return (
-    <Box component="nav">
-      <Drawer
-        variant={isMobile ? 'temporary' : 'persistent'}
-        open={open}
-        onClose={onClose}
-        ModalProps={{
-          keepMounted: true, // Better mobile performance
-        }}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: 240,
-            boxSizing: 'border-box',
-            marginTop: '64px',
-            height: 'calc(100% - 64px)',
-          },
-        }}
-      >
-        <List>
-          {menuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text} 
-              onClick={() => {
-                navigate(item.path);
-                if (isMobile) onClose();
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </Box>
+    <Drawer
+      variant={isMobile ? 'temporary' : 'persistent'}
+      anchor="left"
+      open={open}
+      onClose={onClose}
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+          marginTop: '64px',
+          height: 'calc(100% - 64px)',
+          zIndex: theme.zIndex.appBar - 1,
+        },
+      }}
+    >
+      <List>
+        {menuItems.map((item) => (
+          <ListItem 
+            button 
+            key={item.text} 
+            onClick={() => {
+              navigate(item.path);
+              if (isMobile) onClose();
+            }}
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
   );
 };
 
