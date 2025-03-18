@@ -6,7 +6,8 @@ import {
   ListItemIcon, 
   ListItemText,
   useTheme,
-  useMediaQuery 
+  useMediaQuery,
+  Box
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -28,41 +29,41 @@ const Sidebar = ({ open, onClose }) => {
     { text: 'Profile', path: '/profile', icon: <PersonIcon /> }
   ];
 
-  const handleNavigation = (path) => {
-    navigate(path);
-    if (isMobile) {
-      onClose();
-    }
-  };
-
   return (
-    <Drawer
-      variant={isMobile ? 'temporary' : 'permanent'}
-      open={open}
-      onClose={onClose}
-      sx={{
-        width: 240,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: 240,
-          boxSizing: 'border-box',
-          marginTop: '64px', // Height of AppBar
-        },
-      }}
-    >
-      <List>
-        {menuItems.map((item) => (
-          <ListItem 
-            button 
-            key={item.text} 
-            onClick={() => handleNavigation(item.path)}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
+    <Box component="nav">
+      <Drawer
+        variant={isMobile ? 'temporary' : 'persistent'}
+        open={open}
+        onClose={onClose}
+        ModalProps={{
+          keepMounted: true, // Better mobile performance
+        }}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 240,
+            boxSizing: 'border-box',
+            marginTop: '64px',
+            height: 'calc(100% - 64px)',
+          },
+        }}
+      >
+        <List>
+          {menuItems.map((item) => (
+            <ListItem 
+              button 
+              key={item.text} 
+              onClick={() => {
+                navigate(item.path);
+                if (isMobile) onClose();
+              }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
   );
 };
 

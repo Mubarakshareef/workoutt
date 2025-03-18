@@ -7,7 +7,7 @@
 .main-container {
   display: flex;
   flex: 1;
-  margin-top: 64px; /* Height of AppBar */
+  margin-top: 64px;
 }
 
 .content {
@@ -19,6 +19,10 @@
 @media (min-width: 600px) {
   .content {
     margin-left: 240px;
+  }
+  
+  .content.sidebar-closed {
+    margin-left: 0;
   }
 }
 
